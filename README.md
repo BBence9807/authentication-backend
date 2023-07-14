@@ -12,7 +12,7 @@ This is a Node.js authentication API built with Express, TypeScript, JWT (JSON W
 ## Prerequisites
 
 - Node.js (v14 or above)
-- Oracle database with the necessary configuration
+- MySQL database with the necessary configuration
 
 ## Getting Started
 
@@ -68,7 +68,7 @@ For detailed documentation of the API routes, please refer to the Swagger docume
 - TypeScript
 - JWT (JSON Web Tokens)
 - TypeORM
-- Oracle SQL
+- MySQL
 - Swagger
 
 
