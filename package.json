@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-authentication-backend",
+  "version": "1.0.0",
+  "description": "Authentication Backend with Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "auth",
+    "express",
+    "typescript",
+    "jwt"
+  ],
+  "author": "Badics Bence",
+  "license": "ISC"
+}
