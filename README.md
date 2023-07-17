@@ -70,6 +70,7 @@ For detailed documentation of the API routes, please refer to the Swagger docume
 - TypeORM
 - PostgreSQL
 - Swagger
+- Winston
 
 
 ## License

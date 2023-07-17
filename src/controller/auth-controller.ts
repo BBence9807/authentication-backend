@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {User} from '../model/User';
 import {DatabaseServer} from "../config/DatabaseServer";
+import {logger} from "../logger/AuthLogger";
 
 const router = express.Router();
 
@@ -23,9 +24,11 @@ router.post('/register', async (req: Request, res: Response) => {
         // Save the user to the database
         await userRepository.save(user)
 
+        logger.info('User registered successfully');
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error(error);
+        logger.error('An error occurred', { error });
         res.status(500).json({ message: 'An error occurred' });
     }
 });
@@ -57,9 +60,11 @@ router.post('/login', async (req: Request, res: Response) => {
             expiresIn: '1h',
         });
 
+        logger.info('User logged in successfully');
         res.json({ token });
     } catch (error) {
-        console.error(error);
+        logger.error('An error occurred', { error });
+
         res.status(500).json({ message: 'An error occurred' });
     }
 });
