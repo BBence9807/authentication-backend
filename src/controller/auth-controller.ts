@@ -1,9 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../model/User';
-import {EntityManager} from "typeorm";
-import connectDatabase from '../config/database';
+import {User} from '../model/User';
+import {DatabaseServer} from "../config/DatabaseServer";
 
 const router = express.Router();
 
@@ -12,7 +11,7 @@ router.post('/register', async (req: Request, res: Response) => {
 
 
     try {
-        const  entityManager = new EntityManager(await connectDatabase());
+        const userRepository = DatabaseServer.getInstance().getDataSource().getRepository(User);
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -22,7 +21,7 @@ router.post('/register', async (req: Request, res: Response) => {
         user.password = hashedPassword;
 
         // Save the user to the database
-        await entityManager.save(User, {data:user});
+        await userRepository.save(user)
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
@@ -35,9 +34,10 @@ router.post('/login', async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
     try {
+        const userRepository = DatabaseServer.getInstance().getDataSource().getRepository(User);
         // Find the user in the database
-        const  entityManager = new EntityManager(await connectDatabase());
-        const user = await entityManager.findOne(User,{ where: { username } });
+        //const user = await entityManager.findOne(User,{ where: { username } });
+        const user = await userRepository.findOne({ where: { username } });
 
         if (!user) {
             res.status(401).json({ message: 'Invalid credentials' });
